@@ -25,7 +25,7 @@ def login():
     )
 
     if res > 0:
-        user_row = cur.fetchOne()
+        user_row = cur.fetchone()
         email = user_row[0]
         password = user_row[1]
 
@@ -38,7 +38,7 @@ def login():
 
 
 
-@server.route("/validate", method=["POST"])
+@server.route("/validate", methods=["POST"])
 def validate():
     encoded_jwt = request.headers["Authorization"]
     if not encoded_jwt:
@@ -55,7 +55,7 @@ def validate():
     return decoded, 200
 
 
-def createJWT(username, password, authz):
+def createJWT(username, secret, authz):
     return jwt.encode(
         {
             "username": username,
