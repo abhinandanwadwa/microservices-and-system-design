@@ -48,7 +48,7 @@ def validate():
     
     try:
         decoded = jwt.decode(
-            encoded_jwt, os.environ.get("JWT_SECRET"), algorithm=["HS256"]
+            encoded_jwt, os.environ.get("JWT_SECRET"), algorithms=["HS256"]
         )
     except:
         return "Not Authorized", 403
@@ -67,5 +67,5 @@ def createJWT(username, secret, authz):
         algorithm="HS256"
     )
 
-if (__name__ == "__main__"):
+if __name__ == "__main__":
     server.run(host="0.0.0.0", port=5000)
